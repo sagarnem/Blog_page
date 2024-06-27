@@ -124,16 +124,19 @@
     <div class="container">
         {% for i in data%}
         <div class="box">
-            <h2>{{i.title}}</h2>
-            <img src="/Blog-image/{{i.image}}" alt="" style="width: 100px; height: 100px;" />
-            <p>{{i.detail | linebreaks}}</p>
+            <h2>{{i.title | title}}</h2>
+            <!-- <img src="{{i.image.url}}" alt="" style="width: 100px; height: 100px;" /> -->
+            <p>{{i.detail | linebreaks | truncatewords:50}} <span><a href="{% url 'blog_detail' i.pk%}" style="text-decoration: underline; color: gray;">see more</a></span></p>
+            
 
             <div style="float: left; ">
                 <a href="{% url 'edit_blog' i.id %}" style="color: gray;">Edit</a>
                 ||
                 <a href="{% url 'delete_blog' i.id %}" style="color: gray;">Delete</a>
             </div>
-            <span style="float: right; position: absolute   ;">{{i.created_at}}</span>
+            <span style="float: right; position: absolute   ;">{{i.created_at | timesince}} ago</span>
+            
+
         </div>
 
         {% endfor %}
